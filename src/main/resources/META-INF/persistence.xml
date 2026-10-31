@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             version="3.0">
+
+    <persistence-unit name="hazelcast-jpa"
+                      transaction-type="RESOURCE_LOCAL">
+
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!-- Enable selective second-level caching -->
+        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver"
+                      value="org.postgresql.Driver"/>
+
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:postgresql://localhost:5432/hazelcast"/>
+
+            <property name="jakarta.persistence.jdbc.user"
+                      value="postgres"/>
+
+            <property name="jakarta.persistence.jdbc.password"
+                      value="root"/>
+
+            <property name="hibernate.hbm2ddl.auto"
+                      value="update"/>
+
+            <property name="hibernate.show_sql"
+                      value="true"/>
+
+            <property name="hibernate.format_sql"
+                      value="true"/>
+
+            <!-- Enable second-level cache -->
+            <property name="hibernate.cache.use_second_level_cache"
+                      value="true"/>
+
+            <!-- Use Hibernate's JCache integration -->
+            <property name="hibernate.cache.region.factory_class"
+                      value="org.hibernate.cache.jcache.internal.JCacheRegionFactory"/>
+
+            <!-- Hazelcast JCache provider -->
+            <property name="hibernate.javax.cache.provider"
+                      value="com.hazelcast.cache.HazelcastCachingProvider"/>
+
+            <!-- Enable query caching separately -->
+            <property name="hibernate.cache.use_query_cache"
+                      value="true"/>
+
+            <!-- Automatically create missing cache regions -->
+            <property name="hibernate.javax.cache.missing_cache_strategy"
+                      value="create"/>
+
+            <!-- Enable Hibernate cache statistics -->
+            <property name="hibernate.generate_statistics"
+                      value="true"/>
+        </properties>
+
+    </persistence-unit>
+</persistence>
